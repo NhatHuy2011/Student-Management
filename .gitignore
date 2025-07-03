@@ -1,0 +1,9 @@
+# SpringToolSuite/Java/Maven common ignores
+*.classpath
+*.project
+.idea/
+.settings/
+target/
+
+# Config
+*.properties
