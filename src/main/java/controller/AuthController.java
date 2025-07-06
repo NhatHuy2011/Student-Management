@@ -52,7 +52,7 @@ public class AuthController extends HttpServlet{
 				if(user.getRole().getRole().equals(Constant.ROLE_USER)) {
 					response.sendRedirect(request.getContextPath() + "/user/info");
 				} else if (user.getRole().getRole().equals(Constant.ROLE_ADMIN)){
-					response.sendRedirect(request.getContextPath()+"/admin/listUsers");
+					response.sendRedirect(request.getContextPath()+"/admin/user");
 				}
 			}
 			else {

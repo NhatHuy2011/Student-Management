@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import mapper.RowMapper;
+import model.User;
 
 public interface IGenericDAO<T> {
 	List<T> getAll(String sql, RowMapper<T> mapper, Object...parameters);

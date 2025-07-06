@@ -5,11 +5,6 @@ import java.sql.Date;
 import enums.Sex;
 
 public class User {
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname
-				+ ", email=" + email + ", dob=" + dob + ", sex=" + sex + ", avatar=" + avatar + ", role=" + role + "]";
-	}
 	private int id;
 	private String username;
 	private String password;

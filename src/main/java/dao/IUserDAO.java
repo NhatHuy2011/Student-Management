@@ -9,7 +9,7 @@ public interface IUserDAO extends IGenericDAO<User>{
 	List<User> getAll();
 	User getOne(int id);
 	int insert(User user);
-	void update(int id);
+	void update(User user);
 	void delete(int id);
 	int count();
 }

@@ -39,17 +39,17 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void update(int id) {
-		
+	public void update(User user) {
+		userDAO.update(user);
 	}
 
 	@Override
 	public void delete(int id) {
-		
+		userDAO.delete(id);
 	}
 
 	@Override
 	public int count() {
-		return 0;
+		return userDAO.count();
 	}
 }

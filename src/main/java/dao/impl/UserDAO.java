@@ -46,26 +46,33 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	public int insert(User user) {
 		StringBuilder sql = new StringBuilder("INSERT INTO users (username, password,");
 		sql.append(" fullname, email, dob, sex, avatar, roleId)");
-		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT id FROM roles WHERE name = ?))");
+		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT id FROM roles r WHERE r.role = ?))");
 		
 		return insert(sql.toString(), user.getUsername(), user.getPassword(), user.getFullname(),
-				user.getEmail(), user.getDob(), user.getAvatar(), Constant.ROLE_USER);
+				user.getEmail(), user.getDob(), user.getSex().name(), user.getAvatar(), user.getRole().getRole());
 	}
 
 	@Override
-	public void update(int id) {
+	public void update(User user) {
+		StringBuilder sql = new StringBuilder("UPDATE users SET fullname = ?, email = ?, dob = ?,");
+		sql.append(" sex = ?");
+		sql.append(" WHERE id = ?");
 		
-		
+		update(sql.toString(), user.getFullname(), user.getEmail(), user.getDob(), user.getSex().name(), user.getId());
 	}
 
 	@Override
 	public void delete(int id) {
+		StringBuilder sql = new StringBuilder("DELETE FROM users u WHERE u.id = ?");
 		
-		
+		delete(sql.toString(), id);
 	}
 
 	@Override
 	public int count() {
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM users");
+		
+		count(sql.toString());
 		
 		return 0;
 	}
