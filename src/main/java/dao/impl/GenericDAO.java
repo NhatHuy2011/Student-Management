@@ -15,7 +15,7 @@ import mapper.RowMapper;
 
 public class GenericDAO<T> implements IGenericDAO<T>{
 	//Get content in db.properties at folder src/main/resources
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("db");
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
 	
 	//Create connection to database
 	public Connection getConnection() {

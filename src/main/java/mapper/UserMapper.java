@@ -20,6 +20,7 @@ public class UserMapper implements RowMapper<User>{
 			user.setDob(rs.getDate("dob"));
 			user.setSex(Sex.valueOf(rs.getString("sex")));
 			user.setAvatar(rs.getString("avatar"));
+			user.setPublicId(rs.getString("publicId"));
 			try {
 				Role role = new Role();
 				role.setId(rs.getInt("roleId")); 

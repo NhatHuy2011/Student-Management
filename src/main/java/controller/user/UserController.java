@@ -1,7 +1,6 @@
 package controller.user;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import service.IUserService;
 import service.impl.UserService;
-import utils.FormUtil;
 
 @WebServlet(urlPatterns = {"/user/info"})
 public class UserController extends HttpServlet{

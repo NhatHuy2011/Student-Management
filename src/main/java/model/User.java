@@ -14,6 +14,7 @@ public class User {
 	private Date dob;
 	private Sex sex;
 	private String avatar;
+	private String publicId;
 	//Many To One
 	private Role role;
 	
@@ -53,6 +54,12 @@ public class User {
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	public String getPublicId() {
+		return publicId;
+	}
+	public void setPublicId(String publicId) {
+		this.publicId = publicId;
 	}
 	public Date getDob() {
 		return dob;

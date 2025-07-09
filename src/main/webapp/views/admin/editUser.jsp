@@ -96,9 +96,13 @@
         </div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/admin/user" method="post">
+    <form action="${pageContext.request.contextPath}/admin/user" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="edit" />
         <input type="hidden" name="id" value="${user.id}" />
+
+        <!-- Nếu không upload ảnh mới, giữ nguyên avatar cũ -->
+        <input type="hidden" name="avatar" value="${user.avatar}" />
+        <input type="hidden" name="publicId" value="${user.publicId}" />
 
         <div class="form-group">
             <label for="username">Tài khoản:</label>
@@ -129,21 +133,21 @@
         <div class="form-group">
             <label for="sex">Giới tính:</label>
             <select name="sex" id="sex">
-                <option value="MALE" ${user.sex == 'MALE' ? 'selected' : ''}>Nam</option>
-                <option value="FEMALE" ${user.sex == 'FEMALE' ? 'selected' : ''}>Nữ</option>
+                <option value="MALE" <c:if test="${user.sex == 'MALE'}">selected</c:if>>Nam</option>
+                <option value="FEMALE" <c:if test="${user.sex == 'FEMALE'}">selected</c:if>>Nữ</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="avatar">Avatar URL:</label>
-            <input type="text" name="avatar" id="avatar" value="${user.avatar}" />
+            <label for="avatarFile">Ảnh đại diện mới (nếu có):</label>
+            <input type="file" name="avatarFile" id="avatarFile" accept="image/*" />
         </div>
 
         <div class="form-group">
             <label for="role">Vai trò:</label>
             <select name="role" id="role">
-                <option value="USER" ${user.role.role == 'USER' ? 'selected' : ''}>USER</option>
-                <option value="ADMIN" ${user.role.role == 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+                <option value="USER" <c:if test="${user.role.role == 'USER'}">selected</c:if>>USER</option>
+                <option value="ADMIN" <c:if test="${user.role.role == 'ADMIN'}">selected</c:if>>ADMIN</option>
             </select>
         </div>
 

@@ -45,20 +45,20 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	@Override
 	public int insert(User user) {
 		StringBuilder sql = new StringBuilder("INSERT INTO users (username, password,");
-		sql.append(" fullname, email, dob, sex, avatar, roleId)");
-		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT id FROM roles r WHERE r.role = ?))");
+		sql.append(" fullname, email, dob, sex, avatar, publicId, roleId)");
+		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM roles r WHERE r.role = ?))");
 		
 		return insert(sql.toString(), user.getUsername(), user.getPassword(), user.getFullname(),
-				user.getEmail(), user.getDob(), user.getSex().name(), user.getAvatar(), user.getRole().getRole());
+				user.getEmail(), user.getDob(), user.getSex().name(), user.getAvatar(), user.getPublicId(), user.getRole().getRole());
 	}
 
 	@Override
 	public void update(User user) {
 		StringBuilder sql = new StringBuilder("UPDATE users SET fullname = ?, email = ?, dob = ?,");
-		sql.append(" sex = ?");
+		sql.append(" sex = ?, avatar = ?, publicId = ?");
 		sql.append(" WHERE id = ?");
 		
-		update(sql.toString(), user.getFullname(), user.getEmail(), user.getDob(), user.getSex().name(), user.getId());
+		update(sql.toString(), user.getFullname(), user.getEmail(), user.getDob(), user.getSex() != null ? user.getSex().name() : null, user.getAvatar(), user.getPublicId(), user.getId());
 	}
 
 	@Override
@@ -72,8 +72,6 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	public int count() {
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM users");
 		
-		count(sql.toString());
-		
-		return 0;
+		return count(sql.toString());	
 	}
 }
