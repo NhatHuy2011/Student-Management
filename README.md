@@ -42,7 +42,7 @@
 
 ### 🛠️ Trang Chủ - ADMIN
 
-![Admin Home](https://github.com/user-attachments/assets/a426cad7-cbb6-4cae-88b3-858db17553ff)
+![Admin Home](https://github.com/user-attachments/assets/4ef93e27-f394-45bd-953a-0b668f51c08a)
 
 ---
 
