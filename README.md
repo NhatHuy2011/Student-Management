@@ -4,9 +4,9 @@
 
 ![Architechture](https://github.com/user-attachments/assets/24c4df5d-e181-4a7e-b3b3-378f16344b3c)
 ### Dự án được xây dựng theo mô hình **3-tier architecture** kết hợp mô hình **MVC**, bao gồm:
-- **Presentation Layer (View)**: JSP
-- **Business Layer (Controller)**: Servlet
-- **Data Access Layer (Model)**: JDBC kết nối trực tiếp đến cơ sở dữ liệu
+- **Presentation Layer (MVC)**: Model - View (JSP) - Controller
+- **Business Layer (Service)**: Servlet
+- **Data Access Layer (DAO)**: JDBC kết nối trực tiếp đến cơ sở dữ liệu
 
 ---
 
@@ -42,7 +42,7 @@
 
 ### 🛠️ Trang Chủ - ADMIN
 
-![Admin Home](https://github.com/user-attachments/assets/4ef93e27-f394-45bd-953a-0b668f51c08a)
+![Admin Home](https://github.com/user-attachments/assets/230c8946-c017-4008-93d5-0535a1c91bc6)
 
 ---
 
