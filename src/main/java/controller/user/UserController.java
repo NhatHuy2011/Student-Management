@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import service.IUserService;
 import service.impl.UserService;
+import utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/user/info"})
 public class UserController extends HttpServlet{
@@ -25,8 +26,7 @@ public class UserController extends HttpServlet{
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user = (User) SessionUtil.getInstance().getValue(request, "user");
 
 		if (user != null) {
 			request.setAttribute("user", user);

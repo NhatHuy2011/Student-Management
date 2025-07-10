@@ -14,6 +14,7 @@ import constant.Constant;
 import model.User;
 import service.IUserService;
 import service.impl.UserService;
+import utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/dang-nhap", "/dang-xuat"})
 public class AuthController extends HttpServlet{
@@ -32,6 +33,7 @@ public class AuthController extends HttpServlet{
 				RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 				rd.forward(request, response);
 			} else if (action.equals("logout")) {
+				SessionUtil.getInstance().removeValue(request, "user");
 				response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login");
 			}
 		}
@@ -45,10 +47,8 @@ public class AuthController extends HttpServlet{
 
 			User user = userService.getByUserNameAndPassword(username, password);
 			
-			HttpSession session = request.getSession();
-		    session.setAttribute("user", user);
-
 			if (user != null ) {
+				SessionUtil.getInstance().putValue(request, "user", user);
 				if(user.getRole().getRole().equals(Constant.ROLE_USER)) {
 					response.sendRedirect(request.getContextPath() + "/user/info");
 				} else if (user.getRole().getRole().equals(Constant.ROLE_ADMIN)){
