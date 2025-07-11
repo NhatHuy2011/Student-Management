@@ -5,6 +5,8 @@ import java.util.List;
 import dao.IUserDAO;
 import dao.impl.UserDAO;
 import model.User;
+import paging.Page;
+import paging.Pageable;
 import service.IUserService;
 
 public class UserService implements IUserService{
@@ -21,9 +23,11 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public List<User> getAll() {
-		List<User> users = userDAO.getAll();
-		return users;
+	public Page<User> getAll(Pageable pageable) {
+		List<User> users = userDAO.getAll(pageable);
+		int total = userDAO.getTotal();
+		
+		return new Page<>(users, pageable.getPage(), pageable.getLimit(), total);
 	}
 
 	@Override
@@ -49,7 +53,7 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public int count() {
-		return userDAO.count();
+	public int getTotal() {
+		return userDAO.getTotal();
 	}
 }

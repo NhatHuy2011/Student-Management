@@ -15,7 +15,6 @@ body {
 
 .logout-btn, .add-btn {
 	position: absolute;
-	top: 20px;
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
@@ -96,19 +95,97 @@ th {
 .delete-btn:hover {
 	background-color: #c0392b;
 }
+
+.pagination {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.pagination a {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 8px 12px;
+	background-color: #007bff;
+	color: white;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+.pagination a.disabled {
+	background-color: #ccc;
+	pointer-events: none;
+}
+
+.pagination a.active {
+	background-color: #0056b3;
+	font-weight: bold;
+}
+.header {
+	position: relative;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.page-title {
+	margin: 0;
+	font-size: 24px;
+	color: #333;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
 </style>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/dang-xuat?action=logout"
-		class="logout-btn">Đăng xuất</a>
-	<a href="${pageContext.request.contextPath}/admin/user?action=add"
-		class="add-btn">+ Thêm người dùng</a>
+	<div class="header">
+		<h1 class="page-title">Danh sách người dùng</h1>
+		<a href="${pageContext.request.contextPath}/admin/user?action=add"
+			class="add-btn">+ Thêm người dùng</a> <a
+			href="${pageContext.request.contextPath}/dang-xuat?action=logout"
+			class="logout-btn">Đăng xuất</a>
+	</div>
+	
+	<!-- Form Sắp Xếp -->
+	<div style="text-align: center; margin: 20px;">
+		<form method="get"
+			action="${pageContext.request.contextPath}/admin/user"
+			style="display: inline-block;">
+			<input type="hidden" name="action" value="list" /> <input
+				type="hidden" name="page" value="${page.pageNumber}" /> <input
+				type="hidden" name="limit" value="${page.pageSize}" /> <label
+				for="sortName"><b>Sắp xếp theo:</b></label> <select name="sortName"
+				id="sortName">
+				<option value="id" ${sortName == 'id' ? 'selected' : ''}>ID</option>
+				<option value="username" ${sortName == 'username' ? 'selected' : ''}>Tài
+					khoản</option>
+				<option value="fullname" ${sortName == 'fullname' ? 'selected' : ''}>Họ
+					tên</option>
+				<option value="email" ${sortName == 'email' ? 'selected' : ''}>Email</option>
+				<option value="dob" ${sortName == 'dob' ? 'selected' : ''}>Ngày
+					sinh</option>
+				<option value="role" ${sortName == 'role' ? 'selected' : ''}>Vai
+					trò</option>
+			</select> <label for="sortBy"><b>Thứ tự:</b></label> <select name="sortBy"
+				id="sortBy">
+				<option value="asc" ${sortBy == 'asc' ? 'selected' : ''}>Tăng
+					dần</option>
+				<option value="desc" ${sortBy == 'desc' ? 'selected' : ''}>Giảm
+					dần</option>
+			</select>
 
-	<h1>Danh sách người dùng</h1>
+			<button type="submit"
+				style="padding: 6px 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-left: 10px;">Sắp
+				xếp</button>
+		</form>
+	</div>
+
 	<div style="text-align: center; margin-bottom: 20px;">
 		<div
 			style="display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; font-weight: bold; border-radius: 8px;">
-			Tổng số người dùng: ${total}</div>
+			Tổng số người dùng: ${page.totalElements}</div>
 	</div>
 
 	<table>
@@ -126,7 +203,7 @@ th {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="user" items="${users}">
+			<c:forEach var="user" items="${page.content}">
 				<tr>
 					<td>${user.id}</td>
 					<td>${user.username}</td>
@@ -152,5 +229,42 @@ th {
 			</c:forEach>
 		</tbody>
 	</table>
+
+	<!-- Pagination -->
+	<div class="pagination">
+		<c:choose>
+			<c:when test="${page.pageNumber > 1}">
+				<a
+					href="?action=list&page=${page.pageNumber - 1}&limit=${page.pageSize}&sortName=${sortName}&sortBy=${sortBy}">&laquo;
+					Trước</a>
+			</c:when>
+			<c:otherwise>
+				<a class="disabled">&laquo; Trước</a>
+			</c:otherwise>
+		</c:choose>
+
+		<c:forEach var="i" begin="1" end="${page.totalPages}">
+			<c:choose>
+				<c:when test="${i == page.pageNumber}">
+					<a class="active">${i}</a>
+				</c:when>
+				<c:otherwise>
+					<a
+						href="?action=list&page=${i}&limit=${page.pageSize}&sortName=${sortName}&sortBy=${sortBy}">${i}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<c:choose>
+			<c:when test="${page.pageNumber < page.totalPages}">
+				<a
+					href="?action=list&page=${page.pageNumber + 1}&limit=${page.pageSize}&sortName=${sortName}&sortBy=${sortBy}">Sau
+					&raquo;</a>
+			</c:when>
+			<c:otherwise>
+				<a class="disabled">Sau &raquo;</a>
+			</c:otherwise>
+		</c:choose>
+	</div>
 </body>
 </html>

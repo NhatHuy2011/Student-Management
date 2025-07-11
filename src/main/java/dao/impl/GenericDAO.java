@@ -178,7 +178,7 @@ public class GenericDAO<T> implements IGenericDAO<T>{
 	}
 	
 	@Override
-	public int count(String sql, Object... parameters) {
+	public int getTotal(String sql, Object... parameters) {
 		ResultSet resultSet = null;
 		int count = 0;
 		try(Connection connection = getConnection()){

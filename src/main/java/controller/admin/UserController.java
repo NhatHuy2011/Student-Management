@@ -20,6 +20,10 @@ import org.apache.commons.io.FilenameUtils;
 import enums.Sex;
 import model.Role;
 import model.User;
+import paging.Page;
+import paging.PageRequest;
+import paging.Pageable;
+import paging.Sort;
 import service.IUserService;
 import service.impl.UserService;
 import utils.CloudinaryUtils;
@@ -53,13 +57,36 @@ public class UserController extends HttpServlet {
             userService.delete(id);
             response.sendRedirect(request.getContextPath() + "/admin/user?action=list");
         } else {
-            List<User> users = userService.getAll();
-            int totalUser = userService.count();
-                        
-            request.setAttribute("users", users);
-            request.setAttribute("total", totalUser);
-            
-            request.getRequestDispatcher("/views/admin/listUsers.jsp").forward(request, response);
+        	int page = 1;
+        	int limit = 5;
+
+        	String sortName = request.getParameter("sortName");
+        	String sortBy = request.getParameter("sortBy");
+
+        	if (request.getParameter("page") != null) {
+        	    try {
+        	        page = Integer.parseInt(request.getParameter("page"));
+        	    } catch (NumberFormatException e) {
+        	        page = 1;
+        	    }
+        	}
+
+        	if (sortName == null || sortName.isBlank()) {
+        	    sortName = "id";
+        	}
+        	if (sortBy == null || sortBy.isBlank()) {
+        	    sortBy = "asc";
+        	}
+
+        	Sort sort = new Sort(sortName, sortBy);
+        	Pageable pageable = new PageRequest(page, limit, sort);
+
+        	Page<User> userPage = userService.getAll(pageable);
+
+        	request.setAttribute("page", userPage);
+        	request.setAttribute("sortName", sortName);
+        	request.setAttribute("sortBy", sortBy);
+        	request.getRequestDispatcher("/views/admin/listUsers.jsp").forward(request, response);
         }
     }
 

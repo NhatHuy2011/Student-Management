@@ -11,5 +11,5 @@ public interface IGenericDAO<T> {
 	int insert(String sql, Object...parameters);
 	void update(String sql, Object...parameters);
 	void delete(String sql, Object...parameters);
-	int count(String sql, Object...parameters);
+	int getTotal(String sql, Object...parameters);
 }

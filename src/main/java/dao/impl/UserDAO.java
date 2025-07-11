@@ -1,11 +1,14 @@
 package dao.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
-import constant.Constant;
+import org.apache.commons.lang3.StringUtils;
+
 import dao.IUserDAO;
 import mapper.UserMapper;
 import model.User;
+import paging.Pageable;
 
 public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	
@@ -27,9 +30,27 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	}
 
 	@Override
-	public List<User> getAll() {
+	public List<User> getAll(Pageable pageble) {
 		StringBuilder sql = new StringBuilder("SELECT u.*, r.* FROM users u");
 		sql.append(" LEFT JOIN roles r ON u.roleId = r.id");
+		if (pageble.getSort() != null 
+			    && StringUtils.isNotBlank(pageble.getSort().getSortName()) 
+			    && StringUtils.isNotBlank(pageble.getSort().getSortBy())) {
+
+			List<String> userColumns = Arrays.asList("id", "username", "fullname", "email", "dob", "sex", "avatar");
+			List<String> roleColumns = Arrays.asList("role");
+
+			if (userColumns.contains(pageble.getSort().getSortName())) {
+			    sql.append(" ORDER BY u." + pageble.getSort().getSortName() + " " + pageble.getSort().getSortBy());
+			} else if (roleColumns.contains(pageble.getSort().getSortName())) {
+			    sql.append(" ORDER BY r." + pageble.getSort().getSortName() + " " + pageble.getSort().getSortBy());
+			}
+
+		}
+
+		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+			sql.append(" LIMIT "+pageble.getOffset()+", "+pageble.getLimit()+"");
+		}
 		return getAll(sql.toString(), new UserMapper());
 	}
 	
@@ -69,9 +90,9 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO{
 	}
 
 	@Override
-	public int count() {
+	public int getTotal() {
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM users");
 		
-		return count(sql.toString());	
+		return getTotal(sql.toString());	
 	}
 }

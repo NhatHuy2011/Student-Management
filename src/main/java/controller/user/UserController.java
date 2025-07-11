@@ -8,22 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.User;
-import service.IUserService;
-import service.impl.UserService;
 import utils.SessionUtil;
 
 @WebServlet(urlPatterns = {"/user/info"})
 public class UserController extends HttpServlet{
 	private static final long serialVersionUID = 2250082893491074306L;
-	
-	private IUserService userService;
-
-	public UserController() {
-		userService = new UserService(); 
-	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) SessionUtil.getInstance().getValue(request, "user");
