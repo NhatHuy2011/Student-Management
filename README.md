@@ -42,7 +42,23 @@
 
 ### 🛠️ Trang Chủ - ADMIN
 
-![Admin Home](https://github.com/user-attachments/assets/230c8946-c017-4008-93d5-0535a1c91bc6)
+<p align="center">
+  <img width="1347" height="644" src="https://github.com/user-attachments/assets/65212efa-e57f-4c3f-8a72-c41fc9a32e8c" />
+  <br/>
+  <strong>Trang 1</strong>
+</p>
+
+<p align="center">
+  <img width="1350" height="642" src="https://github.com/user-attachments/assets/92f27585-a9b6-4be9-80c5-92e0f1bac481" />
+  <br/>
+  <strong>Trang 2</strong>
+</p>
+
+<p align="center">
+  <img width="1363" height="641" src="https://github.com/user-attachments/assets/8d906372-75ba-4ebc-bffe-0e64257ef0bc" />
+  <br/>
+  <strong>Trang 3</strong>
+</p>
 
 ---
 
