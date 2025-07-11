@@ -6,4 +6,4 @@
 target/
 
 # Config
-*.properties
+application.properties
